@@ -157,4 +157,9 @@ module.exports = {
     'yoda': 'error' 
   },
 
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  }
 }

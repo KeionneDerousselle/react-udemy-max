@@ -24,7 +24,7 @@ module.exports = merge(common, {
         exclude: /(node_modules)/,
         options: {
           formatter: require('eslint-friendly-formatter'),
-          emitError: true,
+          // emitError: true,
           failOnError: true
         }
       }

@@ -2,13 +2,15 @@ module.exports = {
   root: true,
 
   parserOptions: {
-    parser: 'babel-eslint',
     sourceType: 'module',
     ecmaVersion: 2018,
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
+      classes: true,
     }
   },
+
+  parser: 'babel-eslint',
 
   env: {
     browser: true,
@@ -23,7 +25,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended'
   ],
 
-  plugins: [ 'react', 'jsx-a11y' ],
+  plugins: [ 'react', 'jsx-a11y', 'babel' ],
 
   rules: { 
     'array-bracket-newline': [ 

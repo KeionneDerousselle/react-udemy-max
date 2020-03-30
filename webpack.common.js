@@ -21,13 +21,13 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         use: [
-          { loader: 'style-loader'},
+          { loader: 'style-loader' },
 
           {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
-              modules: { 
+              modules: {
                 localIdentName: '[name]__[local]__[hash:base64:5]'
               }
             }

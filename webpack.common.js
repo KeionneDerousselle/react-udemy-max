@@ -18,6 +18,36 @@ module.exports = {
       },
 
       {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [
+          { loader: 'style-loader'},
+
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: { 
+                localIdentName: '[name]__[local]__[hash:base64:5]'
+              }
+            }
+          },
+
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: [
+                require('postcss-preset-env')({
+                  stage: 0
+                })
+              ]
+            }
+          }
+        ]
+      },
+
+      {
         test: /\.(png|jpe?g|gif)$/,
         loader: 'url-loader?limit=8000&name=images/[name].[ext]'
       }

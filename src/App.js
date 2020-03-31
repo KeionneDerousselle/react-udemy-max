@@ -31,28 +31,22 @@ import Person from './Person/Person'
 // REACT HOOKS
 const app = () => {
   const [ personsState, setPersonsState ] = useState({
-    persons: [ { name: 'Keionne', age: 25 }, { name: 'Darrius', age: 25 }, { name: 'Lynus', age: 5 } ]
+    persons: [ { id: 1, name: 'Keionne', age: 25 }, { id: 2, name: 'Darrius', age: 25 }, { id: 3, name: 'Lynus', age: 5 } ]
   })
 
   const [ showPersonsState, setShowPersonsState ] = useState({
     showPersons: false
   })
 
-    const switchNameHandler = newName => {
+  const nameChangedHandler = (id, event) => {
     setPersonsState({
-      persons: personsState.persons.map(() => ({
-        name: newName,
-        age: Math.floor(Math.random() * 100)
-      }))
-    })
-  }
-
-  const nameChangedHandler = event => {
-    setPersonsState({
-      persons: personsState.persons.map(() => ({
-        name: event.target.value,
-        age: Math.floor(Math.random() * 100)
-      }))
+      persons: personsState.persons.map(p => {
+          if (p.id !== id) return p
+          return {
+            ...p,
+            name: event.target.value
+          }
+        })
     })
   }
 
@@ -72,23 +66,14 @@ const app = () => {
 
   const persons = showPersonsState.showPersons ?
     <div>
-    <Person
-      name={personsState.persons[0].name}
-      age={personsState.persons[0].age}
-      click={() => switchNameHandler('Keionne')}
-      changed={nameChangedHandler}/>
-    <Person
-      name={personsState.persons[1].name}
-      age={personsState.persons[1].age}
-      click={switchNameHandler.bind(this, 'Darrius')}
-      changed={nameChangedHandler}>
-        My Hobbies: Fishing!
-    </Person>
-    <Person
-      name={personsState.persons[2].name}
-      age={personsState.persons[2].age}
-      click={() => switchNameHandler('Lynus')}
-      changed={nameChangedHandler} />
+      { personsState.persons.map(({ id, name, age }) =>
+          <Person
+            key={id}
+            name={name}
+            age={age}
+            changed={nameChangedHandler.bind(this, id)}/>
+        )
+      }
   </div> :
   null
 

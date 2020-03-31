@@ -46,6 +46,15 @@ const app = () => {
       }))
     })
   }
+
+  const nameChangedHandler = event => {
+    setPersonsState({
+      persons: personsState.persons.map(() => ({
+        name: event.target.value,
+        age: Math.floor(Math.random() * 100)
+      }))
+    })
+  }
   // The bind syntax is more performant than anonymous function calls
 
   return (
@@ -54,17 +63,20 @@ const app = () => {
       <Person
         name={personsState.persons[0].name}
         age={personsState.persons[0].age}
-        click={() => switchNameHandler('Keionne')} />
+        click={() => switchNameHandler('Keionne')}
+        changed={nameChangedHandler}/>
       <Person
         name={personsState.persons[1].name}
         age={personsState.persons[1].age}
-        click={switchNameHandler.bind(this, 'Darrius')}>
+        click={switchNameHandler.bind(this, 'Darrius')}
+        changed={nameChangedHandler}>
           My Hobbies: Fishing!
       </Person>
       <Person
         name={personsState.persons[2].name}
         age={personsState.persons[2].age}
-        click={() => switchNameHandler('Lynus')} />
+        click={() => switchNameHandler('Lynus')}
+        changed={nameChangedHandler} />
     </div>
   )
 }

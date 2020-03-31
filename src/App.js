@@ -34,9 +34,9 @@ const app = () => {
     persons: [ { name: 'Keionne', age: 25 }, { name: 'Darrius', age: 25 }, { name: 'Lynus', age: 5 } ]
   })
 
-  // const [ otherState, setOtherState ] = useState({
-  //   other: 'some other value'
-  // })
+  const [ showPersonsState, setShowPersonsState ] = useState({
+    showPersons: false
+  })
 
     const switchNameHandler = newName => {
     setPersonsState({
@@ -55,28 +55,53 @@ const app = () => {
       }))
     })
   }
+
+  const togglePersonsHandler = () => {
+    setShowPersonsState({
+      showPersons: !showPersonsState.showPersons
+    })
+  }
+
+  const style = {
+    backgroundColor: 'white',
+    font: 'inherit',
+    border: '1px solid blue',
+    padding: '8px',
+    pointer: 'cursor'
+  }
+
+  const persons = showPersonsState.showPersons ?
+    <div>
+    <Person
+      name={personsState.persons[0].name}
+      age={personsState.persons[0].age}
+      click={() => switchNameHandler('Keionne')}
+      changed={nameChangedHandler}/>
+    <Person
+      name={personsState.persons[1].name}
+      age={personsState.persons[1].age}
+      click={switchNameHandler.bind(this, 'Darrius')}
+      changed={nameChangedHandler}>
+        My Hobbies: Fishing!
+    </Person>
+    <Person
+      name={personsState.persons[2].name}
+      age={personsState.persons[2].age}
+      click={() => switchNameHandler('Lynus')}
+      changed={nameChangedHandler} />
+  </div> :
+  null
+
   // The bind syntax is more performant than anonymous function calls
 
   return (
     <div>
-      <button onClick={switchNameHandler}>Switch Name</button>
-      <Person
-        name={personsState.persons[0].name}
-        age={personsState.persons[0].age}
-        click={() => switchNameHandler('Keionne')}
-        changed={nameChangedHandler}/>
-      <Person
-        name={personsState.persons[1].name}
-        age={personsState.persons[1].age}
-        click={switchNameHandler.bind(this, 'Darrius')}
-        changed={nameChangedHandler}>
-          My Hobbies: Fishing!
-      </Person>
-      <Person
-        name={personsState.persons[2].name}
-        age={personsState.persons[2].age}
-        click={() => switchNameHandler('Lynus')}
-        changed={nameChangedHandler} />
+      <button
+        style={style}
+        onClick={togglePersonsHandler}>
+          Toggle Persons
+      </button>
+      { persons }
     </div>
   )
 }
